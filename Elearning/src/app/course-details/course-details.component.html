@@ -1,0 +1,17 @@
+<div class="row product-details" *ngIf="courseData">
+<div class="col-sm-6">
+<img  class="product-img" src="{{courseData.image}}" alt="">
+</div>
+<div class="col-sm-6">
+    <div class="details">
+        <h1>{{courseData.name}}</h1>
+        <h3>Price : {{courseData.price}}</h3>
+        <h6>Category : {{courseData.category}}</h6>
+        <h6>Description : {{courseData.description}}</h6>
+        <button class="form-button">Buy Now</button>
+        <button *ngIf="removeCart" class="form-button" (click)=" removeToCart(courseData.id)">Remove to Cart</button>
+        <button *ngIf="!removeCart" class="form-button" (click)="addToCart()">Add to Cart</button>
+        
+    </div>
+</div>
+</div>
