@@ -35,9 +35,15 @@ export class CartPageComponent implements OnInit {
       this.cartData = result;
       console.warn(this.cartData);
       let price = 0;
+      result.forEach((item) => {
+        if (item.quantity) {
+          price = price + (+item.price * +item.quantity)
+        }
+      })
+      this.priceSummary.price = price;
       this.priceSummary.discount = price / 10;
       this.priceSummary.tax = price / 10;
-      this.priceSummary.total = price + (price / 10) + 100 - (price / 10);
+      this.priceSummary.total = price + (price / 10) - (price / 10);
 
     if(!this.cartData.length){
       this.router.navigate(['/'])

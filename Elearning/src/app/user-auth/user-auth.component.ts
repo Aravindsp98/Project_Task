@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { cart, login, course, signUp } from '../data-type';
 import { CourseService } from '../services/course.service';
 import { UserService } from '../services/user.service';
+
 @Component({
   selector: 'app-user-auth',
   templateUrl: './user-auth.component.html',
@@ -19,17 +20,11 @@ export class UserAuthComponent implements OnInit {
   signUp(data: signUp) {
     this.user.userSignUp(data);
   }
+
+
   login(data: login) {
     this.user.userLogin(data)
-    this.user.invalidUserAuth.subscribe((result)=>{
-      console.warn(result);
-      if(result){
-         this.authError="User not found"
-      }else{
-        this.localCartToRemoteCart();
-      }
-      
-    })
+    this.localCartToRemoteCart();
   }
   openSignUp(){
     this.showLogin=false
@@ -41,15 +36,15 @@ this.showLogin=true;
   localCartToRemoteCart(){
    let data = localStorage.getItem('localCart');
    let user = localStorage.getItem('user');
-   let userId= user && JSON.parse(user).id;
+   let user_id= user && JSON.parse(user).id;
    if(data){
     let cartDataList:course[]= JSON.parse(data);
   
-    cartDataList.forEach((product:course, index)=>{
+    cartDataList.forEach((course:course, index)=>{
       let cartData:cart={
-        ...product,
-        courseId:product.id,
-        userId
+        ...course,
+        course_id:course.id,
+        user_id
       }
       delete cartData.id;
       setTimeout(() => {
@@ -66,7 +61,7 @@ this.showLogin=true;
    }
 
    setTimeout(() => {
-    this.course.getCartList(userId)
+    this.course.getCartList(user_id)
    }, 2000);
     
   }

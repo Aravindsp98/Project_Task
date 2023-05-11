@@ -8,33 +8,38 @@ import { cart, order, course } from '../data-type';
 export class CourseService {
   cartData = new EventEmitter<course[] | []>();
   constructor(private http: HttpClient) { }
-  addProduct(data: course) {
-    return this.http.post('http://127.0.0.1:8000/courses', data);
+  addCourse(data: course) {
+    return this.http.post('http://127.0.0.1:8000/courses/', data);
   }
-  CourseList() {
-    return this.http.get<course[]>('http://127.0.0.1:8000/courses');
+  courseList() {
+    return this.http.get<course[]>('http://127.0.0.1:8000/courses/');
   }
 
   deleteCourse(id: number) {
-    return this.http.delete(`http://127.0.0.1:8000/courses/${id}`);
+    return this.http.delete(`http://127.0.0.1:8000/courses/${id}/`);
   }
 
-  getProduct(id: string) {
-    return this.http.get<course>(`http://127.0.0.1:8000/courses/${id}`);
+  getCourse(id: string) {
+    return this.http.get<course>(`http://127.0.0.1:8000/courses/${id}/`);
   }
 
- 
-  popularCourses() {
-    return this.http.get<course[]>('http://127.0.0.1:8000/courses?_limit=3');
+  updateCourse(course: course) {
+    return this.http.put<course>(
+      `http://127.0.0.1:8000/courses/${course.id}/`,
+      course
+    );
+  }
+  popularCourse() {
+    return this.http.get<course[]>('http://127.0.0.1:8000/courses/?_limit=3');
   }
 
-  trendyCourses() {
-    return this.http.get<course[]>('http://127.0.0.1:8000/courses?_limit=8');
+  trendyCourse() {
+    return this.http.get<course[]>('http://127.0.0.1:8000/courses/?_limit=8');
   }
 
   searchCourse(query: string) {
     return this.http.get<course[]>(
-      `http://127.0.0.1:8000/courses?q=${query}`
+      `http://127.0.0.1:8000/courses/?q=${query}`
     );
   }
 
@@ -52,22 +57,22 @@ export class CourseService {
     }
   }
 
-  removeItemFromCart(productId: number) {
+  removeItemFromCart(courseId: number) {
     let cartData = localStorage.getItem('localCart');
     if (cartData) {
       let items: course[] = JSON.parse(cartData);
-      items = items.filter((item: course) => productId !== item.id);
+      items = items.filter((item: course) => courseId !== item.id);
       localStorage.setItem('localCart', JSON.stringify(items));
       this.cartData.emit(items);
     }
   }
 
   addToCart(cartData: cart) {
-    return this.http.post('http://127.0.0.1:8000/cart', cartData);
+    return this.http.post('http://127.0.0.1:8000/cart/', cartData);
   }
-  getCartList(userId: number) {
+  getCartList(user_id: number) {
     return this.http
-      .get<course[]>('http://127.0.0.1:8000/cart?userId=' + userId, {
+      .get<course[]>('http://127.0.0.1:8000/cart/?user_id=/' + user_id, {
         observe: 'response',
       })
       .subscribe((result) => {
@@ -77,31 +82,31 @@ export class CourseService {
       });
   }
   removeToCart(cartId: number) {
-    return this.http.delete('http://127.0.0.1:8000/cart/' + cartId);
+    return this.http.delete('http://127.0.0.1:8000/cart/' + cartId + '/');
   }
   currentCart() {
     let userStore = localStorage.getItem('user');
     let userData = userStore && JSON.parse(userStore);
-    return this.http.get<cart[]>('http://127.0.0.1:8000/cart?userId=' + userData.id);
+    return this.http.get<cart[]>('http://127.0.0.1:8000/cart/?user_id=' + userData.id);
   }
 
   orderNow(data: order) {
-    return this.http.post('http://127.0.0.1:8000/orders', data);
+    return this.http.post('http://127.0.0.1:8000/orders/', data);
   }
   orderList() {
     let userStore = localStorage.getItem('user');
     let userData = userStore && JSON.parse(userStore);
-    return this.http.get<order[]>('http://127.0.0.1:8000/orders?userId=' + userData.id);
+    return this.http.get<order[]>('http://127.0.0.1:8000/orders/' + userData.id +'/');
   }
 
   deleteCartItems(cartId: number) {
-    return this.http.delete('http://127.0.0.1:8000/cart/' + cartId).subscribe((result) => {
+    return this.http.delete('http://127.0.0.1:8000/cart/' + cartId + '/').subscribe((result) => {
       this.cartData.emit([]);
     })
   }
 
-  cancelOrder(orderId:number){
-    return this.http.delete('http://127.0.0.1:8000/orders/'+orderId)
+  cancelOrder(order_id:number){
+    return this.http.delete('http://127.0.0.1:8000/orders/'+order_id+'/')
 
   }
 

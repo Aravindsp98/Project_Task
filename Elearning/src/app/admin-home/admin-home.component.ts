@@ -3,7 +3,7 @@ import { course } from '../data-type';
 import { CourseService } from '../services/course.service';
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 @Component({
-  selector: 'app-admin-home',
+  selector: 'app-seller-home',
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.css'],
 })
@@ -12,14 +12,14 @@ export class AdminHomeComponent implements OnInit {
   courseMessage: undefined | string;
   icon = faTrash;
   iconEdit=faEdit;
-  constructor(private product: CourseService) {}
+  constructor(private course: CourseService) {}
 
   ngOnInit(): void {
     this.list();
   }
 
   deleteCourse(id: number) {
-    this.product.deleteCourse(id).subscribe((result) => {
+    this.course.deleteCourse(id).subscribe((result) => {
       if (result) {
         this.courseMessage = 'Course is deleted';
 
@@ -32,7 +32,7 @@ export class AdminHomeComponent implements OnInit {
   }
 
   list() {
-    this.product.CourseList().subscribe((result) => {
+    this.course.courseList().subscribe((result) => {
       if (result) {
         this.courseList = result;
       }

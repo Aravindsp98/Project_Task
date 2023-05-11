@@ -9,8 +9,9 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
-import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
+import { AdminAddCourseComponent } from './admin-add-course/admin-add-course.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AdminUpdateCourseComponent } from './admin-update-course/admin-update-course.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { SearchComponent } from './search/search.component';
@@ -27,7 +28,8 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
     HomeComponent,
     AdminAuthComponent,
     AdminHomeComponent,
-    AdminAddProductComponent,
+    AdminAddCourseComponent,
+    AdminUpdateCourseComponent,
     FooterComponent,
     SearchComponent,
     CourseDetailsComponent,

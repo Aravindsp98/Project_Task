@@ -9,8 +9,7 @@ import { CourseService } from '../services/course.service';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-
-  totalPrice: number | undefined;
+  total_price: number | undefined;
   cartData: cart[] | undefined;
   orderMsg: string | undefined;
   constructor(private course: CourseService, private router: Router) { }
@@ -20,22 +19,27 @@ export class CheckoutComponent implements OnInit {
 
       let price = 0;
       this.cartData = result;
-      this.totalPrice = price + (price / 10) + 100 - (price / 10);
+      result.forEach((item) => {
+        if (item.quantity) {
+          price = price + (+item.price * +item.quantity)
+        }
+      })
+      this.total_price = price + (price / 10) - (price / 10);
 
-      console.warn(this.totalPrice);
+      console.warn(this.total_price);
 
     })
 
   }
   orderNow(data: { email: string, address: string, contact: string }) {
     let user = localStorage.getItem('user');
-    let userId = user && JSON.parse(user).id;
-    if (this.totalPrice) {
+    let user_id = user && JSON.parse(user).id;
+    if (this.total_price) {
       let orderData: order = {
         ...data,
-        totalPrice: this.totalPrice,
-        userId,
-        id: undefined
+        total_price: this.total_price,
+        user_id,
+        order_id: undefined
       }
 
       this.cartData?.forEach((item) => {

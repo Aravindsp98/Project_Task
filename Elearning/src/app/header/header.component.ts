@@ -18,11 +18,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.route.events.subscribe((val: any) => {
       if (val.url) {
-        if (localStorage.getItem('seller') && val.url.includes('seller')) {
+        if (localStorage.getItem('seller') && val.url.includes('admin')) {
          let sellerStore=localStorage.getItem('seller');
          let sellerData =sellerStore && JSON.parse(sellerStore)[0];
          this.sellerName=sellerData.name;
-          this.menuType = 'seller';
+        this.menuType = 'seller';
         }
         else if(localStorage.getItem('user')){
           let userStore = localStorage.getItem('user');

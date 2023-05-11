@@ -3,7 +3,7 @@ import { signUp } from '../data-type';
 import { AdminService } from '../services/admin.service';
 
 @Component({
-  selector: 'app-admin-auth',
+  selector: 'app-seller-auth',
   templateUrl: './admin-auth.component.html',
   styleUrls: ['./admin-auth.component.css'],
 })
@@ -13,18 +13,16 @@ export class AdminAuthComponent implements OnInit {
   constructor(private admin: AdminService) {}
 
   ngOnInit(): void {
-    // this.admin.reloadSeller()
+    this.admin.reloadSeller()
   }
-  signUp(data: signUp) {
+  signUp(data: signUp): void {
+    console.warn(data);
     this.admin.userSignUp(data);
+
   }
-  login(data: signUp) {
+  
+  login(data: signUp): void {
     this.admin.userLogin(data);
-    this.admin.isLoginError.subscribe((isError)=>{
-      if(isError){
-        this.authError="Email or password is not correct";
-      }
-    })
   }
   openLogin(){
     this.showLogin=true

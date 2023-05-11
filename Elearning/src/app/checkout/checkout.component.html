@@ -2,10 +2,10 @@
   <h1>Checkout</h1>
   <div class="row">
     <div class="col-sm-7">
-      <h3>Add User Details</h3>
+      <h3>Confirm Subscription</h3>
       <p class="message-p">{{orderMsg}}</p>
       <form #orderData="ngForm" class="common-form" (ngSubmit)="orderNow(orderData.value)">
-        <input
+        <!-- <input
           type="text"
           class="form-input"
           name="email"
@@ -25,12 +25,12 @@
           name="contact"
           placeholder="Enter contact details"
           ngModel
-        />
-        <button class="form-button">Entroll Now</button>
+        /> -->
+        <button class="form-button">Confirm Now</button>
       </form>
     </div>
     <div class="col-sm-5">
-        <h3>Total Amount: {{totalPrice}}</h3>
+        <h3>Total Amount: {{total_price}}</h3>.
         <h4>Payment Method : <b>Pay Online</b></h4>
     </div>
   </div>

@@ -1,11 +1,11 @@
-<div class="product-list">
+<div class="course-list">
   <h1>Course List</h1>
   <p class="message-p">{{ courseMessage }}</p>
   <table>
     <thead>
       <tr>
         <th>Image</th>
-        <th>Course Name</th>
+        <th>Name</th>
         <th>Price</th>
         <th>Category</th>
         <th>Description</th>
@@ -19,7 +19,11 @@
         <td>{{ item.price }}</td>
         <td>{{ item.category }}</td>
         <td>{{ item.description }}</td>
-        
+        <td>
+          <fa-icon (click)="deleteCourse(item.id)" [icon]="icon"></fa-icon>
+          <a class="adjust-update-link" routerLink="/admin-update-course/{{item.id}}"> <fa-icon  [icon]="iconEdit"></fa-icon></a>
+          
+        </td>
       </tr>
     </tbody>
   </table>

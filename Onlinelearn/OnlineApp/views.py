@@ -23,7 +23,8 @@ class UserSignUp(APIView):
 
 class UserLogin(APIView):
     serializer_class = UserLoginSerializer
-    def post(self, request, *args, **kwargs):
+
+    def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
 
@@ -32,17 +33,12 @@ class UserLogin(APIView):
         if user is None:
             return Response({'email': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        users = authenticate(request, email=email, password=password)
-        if users is not None:
-            login(request, users)
-            token, created = Token.objects.get_or_create(user=users)
-            data = SignUpSerializer(user).data
-        else:
-            if not user.check_password(password):
-                response = Response({'password': 'Incorrect password'}, status=status.HTTP_400_BAD_REQUEST)
-            else:
-                response = Response()
-        return response
+        if not user.check_password(password):
+            return Response({'password': 'Incorrect password'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user_dict = AdminSignupSerializer(user).data
+        return Response(user_dict, status=status.HTTP_200_OK)
+    
     
 class AdminSignUp(APIView):
     serializer_class = AdminSignupSerializer
@@ -169,21 +165,26 @@ class OrderList(APIView):
 
 
 class OrderDetail(APIView):
-    def get_object(self, pk):
+    def get_object(self, user_id_id):
         try:
-            return Order.objects.get(pk=pk)
+            return Order.objects.get(user_id_id=user_id_id)
         except Order.DoesNotExist:
             raise Http404
 
-    def get(self, request, pk):
-        order = self.get_object(pk)
+    def get(self, request, user_id_id):
+        order = self.get_object(user_id_id)
         serializer = OrderSerializer(order)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        order = self.get_object(pk)
+    def put(self, request, user_id_id):
+        order = self.get_object(user_id_id)
         serializer = OrderSerializer(order, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, user_id_id):
+        order = self.get_object(user_id_id)
+        order.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

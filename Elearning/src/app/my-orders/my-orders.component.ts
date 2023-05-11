@@ -9,23 +9,27 @@ import { CourseService } from '../services/course.service';
 })
 export class MyOrdersComponent implements OnInit {
 
-  orderData:order[]|undefined
-  constructor(private product:CourseService) { }
+  orderData: order[] | undefined
+  constructor(private course:CourseService) { }
 
   ngOnInit(): void {
     this.getOrderList()
   }
   cancelOrder(orderId:number|undefined){
-    orderId && this.product.cancelOrder(orderId).subscribe((result)=>{
+    orderId && this.course.cancelOrder(orderId).subscribe((result)=>{
       if(result){
         this.getOrderList();
       }
     })
   }
-  getOrderList(){
-    this.product.orderList().subscribe((result)=>{
-      this.orderData=result;
-    })
+  getOrderList() {
+    this.course.orderList().subscribe((result) => {
+      if (Array.isArray(result)) {
+        this.orderData = result;
+      } else {
+        this.orderData = Object.values(result);
+      }
+    });
   }
 
 }

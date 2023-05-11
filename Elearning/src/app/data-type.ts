@@ -15,7 +15,8 @@ export interface course{
   image:string,
   description:string,
   id:number,
-  courseId:undefined|number
+  quantity:undefined | number,
+  course_id:undefined|number
 }
 export interface cart{
   name:string,
@@ -24,8 +25,9 @@ export interface cart{
   image:string,
   description:string,
   id:number| undefined,
-  courseId:number,
-  userId:number
+  quantity:undefined | number,
+  course_id:number,
+  user_id:number
 }
 
 export interface priceSummary{
@@ -36,10 +38,7 @@ export interface priceSummary{
 }
 
 export interface order {
-  email:string,
-  address:string,
-  contact:string,
-  totalPrice:number,
-  userId:string,
-  id:number|undefined
+  total_price:number,
+  user_id:string,
+  order_id:number|undefined
 }

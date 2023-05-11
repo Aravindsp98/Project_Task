@@ -7,10 +7,11 @@ import { HomeComponent } from './home/home.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { SearchComponent } from './search/search.component';
-import { AdminAddProductComponent } from './admin-add-product/admin-add-product.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminUpdateCourseComponent } from './admin-update-course/admin-update-course.component';
 import { UserAuthComponent } from './user-auth/user-auth.component';
+import { AdminAddCourseComponent } from './admin-add-course/admin-add-course.component';
 
 const routes: Routes = [
   {
@@ -26,8 +27,12 @@ const routes: Routes = [
     path:'admin-home',
     canActivate:[AuthGuard]
   },{
-    component:AdminAddProductComponent,
-    path:'admin-add-product',
+    component:AdminAddCourseComponent,
+    path:'admin-add-course',
+    canActivate:[AuthGuard]
+  },{
+    component:AdminUpdateCourseComponent,
+    path:'admin-update-course/:id',
     canActivate:[AuthGuard]
   },
   {
@@ -35,7 +40,7 @@ const routes: Routes = [
     path:'search/:query'
   },{
     component:CourseDetailsComponent,
-    path:'details/:productId'
+    path:'details/:courseId'
   },{
     component:UserAuthComponent,
     path:'user-auth'

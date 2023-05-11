@@ -10,12 +10,12 @@ import { CourseService } from '../services/course.service';
 export class SearchComponent implements OnInit {
 
   searchResult:undefined|course[]
-  constructor(private activeRoute: ActivatedRoute, private product:CourseService) { }
+  constructor(private activeRoute: ActivatedRoute, private course:CourseService) { }
 
   ngOnInit(): void {
     let query = this.activeRoute.snapshot.paramMap.get('query');
     console.warn(query);
-    query && this.product.searchCourse(query).subscribe((result)=>{
+    query && this.course.searchCourse(query).subscribe((result)=>{
       this.searchResult=result;
       
     })

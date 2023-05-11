@@ -1,13 +1,13 @@
-.product-details{
+.course-details{
     margin-top: 50px;
     margin-bottom: 80px;
 }
-.product-details .product-img{
+.course-details .course-img{
     width: 100%;
     height: 400px;
     object-fit: contain;
 }
-.product-color{
+.course-color{
     border: 3px solid #000;
     width: 40px;
     height: 40px;

@@ -8,17 +8,17 @@ import { CourseService } from '../services/course.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
- popularCourse:undefined|course[];
- trendyProducts:undefined | course[];
+ popularCourses:undefined|course[];
+ trendyCourses:undefined | course[];
   constructor(private course:CourseService) {}
 
   ngOnInit(): void {
-    this.course.popularCourses().subscribe((data)=>{
-      this.popularCourse=data;
+    this.course.popularCourse().subscribe((data)=>{
+      this.popularCourses=data;
     })
 
-    this.course.trendyCourses().subscribe((data)=>{
-      this.trendyProducts=data;
+    this.course.trendyCourse().subscribe((data)=>{
+      this.trendyCourses=data;
     })
   }
 }
